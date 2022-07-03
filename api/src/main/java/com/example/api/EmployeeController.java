@@ -5,16 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/employees")
-public class TestController {
+public class EmployeeController {
     private final Logger log;
     private final EmployeeMemoryRepository repository;
 
-    public TestController(EmployeeMemoryRepository repository) {
+    public EmployeeController(EmployeeMemoryRepository repository) {
         this.log = LoggerFactory.getLogger(this.getClass());
         this.repository = repository;
     }
@@ -27,7 +28,7 @@ public class TestController {
     }
 
     @GetMapping
-    public List<Employee> get() {
+    public List<Employee> get(HttpServletResponse response) {
         log.info("[get]");
 
         return repository.findAll();
@@ -53,7 +54,7 @@ public class TestController {
 
     @DeleteMapping("/{code}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("code")String code, @RequestBody Employee employee) {
+    public void delete(@PathVariable("code") String code, @RequestBody Employee employee) {
         log.info("[delete] code={}, employee={}", code, employee);
 
         repository.deleteByCode(code);
