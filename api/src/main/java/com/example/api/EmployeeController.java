@@ -27,15 +27,15 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public EmployeeListResource get(HttpServletResponse response) {
-        log.info("[get]");
+    public EmployeeListResource get(@RequestHeader("x-user") String xUser) {
+        log.info("[get] xUser={}", xUser);
 
         return new EmployeeListResource(repository.findAll());
     }
 
     @GetMapping("/{code}")
-    public Employee get(@PathVariable("code") String code) {
-        log.info("[get] code={}", code);
+    public Employee get(@RequestHeader("x-user") String xUser, @PathVariable("code") String code) {
+        log.info("[get] xUser={}, code={}", xUser, code);
 
         return repository.findByCode(code)
                 .orElseThrow(() -> new NoSuchElementException(code));

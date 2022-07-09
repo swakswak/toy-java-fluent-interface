@@ -1,5 +1,7 @@
 package org.example.http;
 
-public class GetRequest {
-
+public class GetRequest extends AbstractRequestTemplate {
+    public GetRequest(String baseUrl) {
+        super(baseUrl);
+    }
 }
