@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -28,10 +27,10 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> get(HttpServletResponse response) {
+    public EmployeeListResource get(HttpServletResponse response) {
         log.info("[get]");
 
-        return repository.findAll();
+        return new EmployeeListResource(repository.findAll());
     }
 
     @GetMapping("/{code}")
