@@ -51,9 +51,8 @@ public abstract class AbstractRequestTemplate implements Request {
         try {
             return connection.getResponseCode();
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
             connection.disconnect();
+            throw new RuntimeException(e);
         }
     }
 
@@ -75,9 +74,8 @@ public abstract class AbstractRequestTemplate implements Request {
             }
             return toResponseType(returnType, responseBodyString);
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
             connection.disconnect();
+            throw new RuntimeException(e);
         }
     }
 
